@@ -4,15 +4,18 @@ const path = require("path");
 
 const connectDb = require("./config/db.js");
 const bookRoutes = require("./routes/bookRoutes.js");
+const userRoutes = require("./routes/userRoutes.js");
 const app = express();
 connectDb();
 
 app.use(express.static(path.join(__dirname, "assets")));
+app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 
-app.use("/ourBooks", bookRoutes);
+app.use("/", bookRoutes);
+app.use("/", userRoutes);
 
-app.get("/", (req, res) => {
+app.get("/three", (req, res) => {
   res.render("index");
 });
 
@@ -24,7 +27,7 @@ app.get("/about", (req, res) => {
   res.render("about");
 });
 
-app.get("/books", (req, res) => {
+app.get("/ourbooks", (req, res) => {
   res.render("books");
 });
 
