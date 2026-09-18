@@ -8,6 +8,13 @@
 <br />
 
 <div class="container">
+
+ <% if (error.length > 0) { %>
+  <h2 style="text-align: center; color: red; margin-bottom: 50px;"><%=error %></h2>
+<% } %>
+
+
+
   <form action="/register" method="post">
     <div class="mb-3">
       <label for="exampleInputName1" class="form-label">Your Name </label>
