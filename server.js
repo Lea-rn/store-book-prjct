@@ -27,6 +27,8 @@ app.use(flash());
 
 app.use((req, res, next) => {
   res.locals.error = req.flash("error-msg"); /// value || null
+  res.locals.user = req.session.user || null;
+
   next();
 });
 

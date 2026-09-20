@@ -8,6 +8,10 @@
 <br />
 
 <div class="container">
+
+   <% if (error.length > 0) { %>
+  <h2 style="text-align: center; color: red; margin-bottom: 50px;"><%=error %></h2>
+<% } %>
   <form method="post" action="/login">
     <div class="mb-3">
       <label for="exampleInputEmail1" class="form-label">Email address</label>

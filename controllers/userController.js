@@ -42,7 +42,7 @@ exports.loginUser = async (req, res) => {
     //// check user :
     const result = await User.findOne({ email });
     if (!result) {
-      console.log("wrong email or password !!");
+      req.flash("error-msg", "wrong email or password !!");
       return res.redirect("/login");
     }
 
@@ -51,7 +51,7 @@ exports.loginUser = async (req, res) => {
     const isMatch = await bcrypt.compare(password, result.password); /// boolean ..
     console.log(isMatch);
     if (!isMatch) {
-      console.log("wrong email or password !!");
+      req.flash("error-msg", "wrong email or password !!");
       return res.redirect("/login");
     }
     console.log("login with success !!");

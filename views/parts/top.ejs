@@ -32,13 +32,13 @@
 
   <body>
     <!-- ***** Preloader Start ***** -->
-    <div id="preloader">
+    <!-- <div id="preloader">
       <div class="jumper">
         <div></div>
         <div></div>
         <div></div>
       </div>
-    </div>
+    </div> -->
     <!-- ***** Preloader End ***** -->
 
     <!-- Header -->
@@ -67,15 +67,23 @@
                   <span class="sr-only">(current)</span>
                 </a>
               </li>
+
+    <% if (user) { %>
               <li class="nav-item">
                 <a class="nav-link" href="/ourbooks">Our Books</a>
               </li>
+        <% } %>
+
+
+
               <li class="nav-item">
                 <a class="nav-link" href="/about">About Us</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/contact">Contact Us</a>
               </li>
+
+              <% if (!user) { %>
               <li class="nav-item">
                 <a
                   style="color: white"
@@ -85,6 +93,29 @@
                   Register</a
                 >
               </li>
+
+                   <li class="nav-item">
+                <a
+                  style="color: white"
+                  class="nav-link btn btn-primary"
+                  href="/login"
+                >
+                  login</a
+                >
+              </li>
+              <% } %>
+
+                  <% if (user) { %>
+          <li class="nav-item">
+                <a
+                  style="color: white"
+                  class="nav-link btn btn-danger"
+                  href="/register"
+                >
+                  logout</a
+                >
+              </li>
+              <% } %>
             </ul>
           </div>
         </div>
