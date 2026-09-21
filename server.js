@@ -26,7 +26,8 @@ app.use(
 app.use(flash());
 
 app.use((req, res, next) => {
-  res.locals.error = req.flash("error-msg"); /// value || null
+  res.locals.error = req.flash("error-msg");
+  res.locals.success_msg = req.flash("success_msg");
   res.locals.user = req.session.user || null;
 
   next();
@@ -57,6 +58,10 @@ app.get("/register", (req, res) => {
 
 app.get("/login", (req, res) => {
   res.render("login");
+});
+
+app.get("/addbooks", (req, res) => {
+  res.render("addbooks");
 });
 
 app.listen(4000, () => console.log("server run on port 4000 !! "));

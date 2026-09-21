@@ -1,0 +1,67 @@
+<%- include('parts/top.ejs') %>
+<br />
+<br />
+<br />
+<br />
+<br />
+<form class="container" method="post" action="/add">
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Title :</label>
+    <input
+      type="text"
+      class="form-control"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      name="title"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Descrption :</label>
+    <input
+      type="text"
+      class="form-control"
+      name="description"
+      id="exampleInputPassword1"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleInputPassword10" class="form-label">Price :</label>
+    <input
+      type="number"
+      name="price"
+      class="form-control"
+      id="exampleInputPassword10"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleInputPassword11" class="form-label">Author :</label>
+    <input
+      type="text"
+      name="author"
+      class="form-control"
+      id="exampleInputPassword11"
+    />
+  </div>
+
+  <div class="mb-3">
+    <label for="exampleInputPassword111" class="form-label">Image</label>
+    <input
+      type="file"
+      name="image"
+      class="form-control"
+      id="exampleInputPassword111"
+    />
+  </div>
+  <button type="submit" class="btn btn-primary">add Book</button>
+</form>
+ <% if (error.length > 0) { %>
+
+<div class=" mt-5 alert alert-danger text-center container" role="alert"><%=error %></div>
+<% } %>
+
+ <% if (success_msg.length > 0) { %>
+<div class=" mt-5 alert alert-success container text-center" role="alert"><%=success_msg %></div>
+<% } %>
+<%- include('parts/bottom.ejs') %>

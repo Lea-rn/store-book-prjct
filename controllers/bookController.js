@@ -37,3 +37,26 @@ exports.getOneBookDetails = async (req, res) => {
     console.log(err);
   }
 };
+
+/////// add books ::
+exports.addBook = async (req, res) => {
+  try {
+    const { title, description, price, author } = req.body;
+
+    const newBook = new Book({
+      title,
+      description,
+      price,
+      author,
+      image: req.file ? req.file.filename : null,
+    });
+
+    req.flash("success_msg", "book added successfully !!! ");
+    res.redirect("/addbooks");
+
+    await newBook.save();
+  } catch (err) {
+    req.flash("error-msg", "book not added  !!! ");
+    res.redirect("/addbooks");
+  }
+};
