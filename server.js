@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const flash = require("connect-flash");
 const session = require("express-session");
+const Book = require("./models/bookModel.js");
 
 const connectDb = require("./config/db.js");
 
@@ -62,6 +63,15 @@ app.get("/login", (req, res) => {
 
 app.get("/addbooks", (req, res) => {
   res.render("addbooks");
+});
+
+app.get("/mybooks", async (req, res) => {
+  try {
+    const results = await Book.find({});
+    res.render("mybooks", { results });
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.listen(4000, () => console.log("server run on port 4000 !! "));

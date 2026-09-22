@@ -60,3 +60,29 @@ exports.addBook = async (req, res) => {
     res.redirect("/addbooks");
   }
 };
+
+///// get edit form ::
+exports.getEditForm = async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id);
+    console.log(book);
+    if (!book) {
+      req.flash("error-msg", "Book not found !!");
+      res.redirect("/mybooks");
+    }
+
+    res.render("editbook", { book });
+  } catch (err) {
+    req.flash("error-msg", "something went wrong !!");
+    res.redirect("/mybooks");
+  }
+};
+
+///// update book ::
+
+exports.updateBook = async (req, res) => {
+  try {
+  } catch (err) {
+    console.log(err);
+  }
+};

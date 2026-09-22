@@ -22,7 +22,7 @@ const storage = multer.diskStorage({
 
 const fileFilter = (req, file, cb) => {
   const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
-  if (allowedTypes.includes(file.mimeType)) {
+  if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
     cb(new Error("only images are allowed"), false);
@@ -34,13 +34,21 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage,
   fileFilter,
-  fileSize: 1024 * 1024 * 2, // ~ 2mb
+  limits: {
+    fileSize: 1024 * 1024 * 2, //  2097152 bytes ~ 2mb
+  },
 });
 
 router.get("/ourbooks", getBookController.getAllBooks);
 router.get("/three", getBookController.getThreeBooks);
 router.get("/bookdetails/:id", getBookController.getOneBookDetails);
 router.post("/add", upload.single("image"), getBookController.addBook);
+router.get("/edit/:id", getBookController.getEditForm);
+router.post(
+  "/update/:id",
+  upload.single("image"),
+  getBookController.updateBook,
+);
 
 module.exports = router;
 

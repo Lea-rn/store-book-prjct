@@ -1,0 +1,35 @@
+<%- include('parts/top.ejs') %>
+<br />
+<br />
+<br />
+<br />
+
+
+<div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+             <% for (let ele of results) { %>
+    
+          <div style="width: 25%;"  class="col-md-4  ">
+            <div class="product-item">
+              <a href="/bookdetails/<%= ele._id  %>"><img src="/uploads/<%= ele.image  %>" alt="" /></a>
+              <div class="down-content">
+                <a href="#"><h4><%= ele.title  %></h4></a>
+                <h6><%= ele.price  %></h6>
+                <p>
+                <%= ele.description  %>
+                </p>
+                <div style="display: flex; justify-content: space-between;">
+        <a class="btn btn-danger" href="">Delete</a>
+        <a class="btn btn-success" href="/edit/<%= ele._id %>">Update</a>
+       </div>
+              </div>
+            </div>
+          </div>
+ 
+     <% } %>
+
+</div>
+
+
+
+
+<%- include('parts/bottom.ejs') %>
