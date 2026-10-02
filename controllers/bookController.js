@@ -1,4 +1,6 @@
+const path = require("path");
 const Book = require("../models/bookModel");
+const fs = require("fs");
 
 ///// get all books ::
 exports.getAllBooks = async (req, res) => {
@@ -82,7 +84,34 @@ exports.getEditForm = async (req, res) => {
 
 exports.updateBook = async (req, res) => {
   try {
+    const { title, description, price, author } = req.body;
+    const result = await Book.findById(req.params.id);
+    if (!result) {
+      req.flash("error-msg", "Book not found");
+      return res.redirect("/mybooks");
+    }
+
+    const oldImage = result.image;
+    if (req.file) {
+      result.image = req.file.filename; //// mongoose ...
+    }
+    if (oldImage) {
+      try {
+        await fs.unlink(
+          path.join(__dirname, "..", "assets", "uploads", oldImage),
+        );
+      } catch (err) {
+        console.log("err");
+      }
+    }
+
+    result.title = title;
+    result.description = description;
+    result.price = price;
+    result.author = author;
+    await result.save();
+    res.redirect("/mybooks");
   } catch (err) {
-    console.log(err);
+    req.flash("error-msg", "update failed !!! ");
   }
 };

@@ -4,13 +4,50 @@
 <br />
 <br />
 
+<form action="/mybooks" method="get"
+ style="box-shadow: 1px 1px 10px ;
+  padding: 15px; width: 30%;
+ margin-left: auto; margin-right: auto;
+ background: linear-gradient(to top left ,#3653e4 , #ffff);
+ ">
+  <input  style="display: block; margin: 15px;" type="search" name="q" placeholder="search by title">
+   <select name="sort" style="display: block; margin: 15px;"">
+    <option value="price_asc">
+      Price : Low to High
+    </option>
+    <option value="price_desc">
+     Price : High to Low
+    </option>
 
-<div style="display: flex; flex-direction: row; flex-wrap: wrap;">
+    <option value="title_asc">
+    Title : A ===> Z
+    </option>
+    <option value="title_desc">
+      Title : Z ===> A
+    </option>
+    <option value="newset">
+      Newset
+    </option>
+   </select>
+   <input style="display: block; margin: 15px;" type="number" name="min" placeholder="min price ...">
+   <input style="display: block; margin: 15px;" type="number" name="max" placeholder="max price">
+   <button class="btn btn-secondary" type="submit">FILTER</button>
+</form>
+
+
+
+
+
+
+
+
+
+<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;">
              <% for (let ele of results) { %>
     
-          <div style="width: 25%;"  class="col-md-4  ">
+          <div style="width: 10%; box-shadow: 1px 1px 10px; margin: 20px; border-radius: 10px;"  class="col-md-4  ">
             <div class="product-item">
-              <a href="/bookdetails/<%= ele._id  %>"><img src="/uploads/<%= ele.image  %>" alt="" /></a>
+              <a href="/bookdetails/<%= ele._id  %>"><img height="250px" src="/uploads/<%= ele.image  %>" alt="" /></a>
               <div class="down-content">
                 <a href="#"><h4><%= ele.title  %></h4></a>
                 <h6><%= ele.price  %></h6>
@@ -19,7 +56,7 @@
                 </p>
                 <div style="display: flex; justify-content: space-between;">
         <a class="btn btn-danger" href="">Delete</a>
-        <a class="btn btn-success" href="/edit/<%= ele._id %>">Update</a>
+        <a  class="btn btn-success" href="/edit/<%= ele._id %>">Update</a>
        </div>
               </div>
             </div>
