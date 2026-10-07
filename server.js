@@ -67,7 +67,51 @@ app.get("/addbooks", (req, res) => {
 
 app.get("/mybooks", async (req, res) => {
   try {
-    const results = await Book.find({});
+    const { sort, q, min, max } = req.query;
+
+    let query = {};
+
+    if (q && q.trim()) {
+      query.title = { $regex: q.trim(), $options: "i" };
+    }
+
+    const filterPrice = {};
+    if (min !== undefined && min !== "") {
+      filterPrice.$gte = Number(min);
+    }
+
+    if (max !== undefined && max !== "") {
+      filterPrice.$lte = Number(max);
+    }
+
+    if (Object.keys(filterPrice).length) {
+      query.price = filterPrice;
+    }
+
+    let sortObj = {};
+
+    switch (sort) {
+      case "price_asc":
+        sortObj = { price: 1 };
+        break;
+      case "price_desc":
+        sortObj = { price: -1 };
+        break;
+      case "title_asc":
+        sortObj = { title: 1 };
+        break;
+      case "title_desc":
+        sortObj = { title: -1 };
+        break;
+      case "newset":
+        sortObj = { _id: -1 };
+        break;
+      // default:
+      //   sortObj = { _id: -1 };
+    }
+
+    const results = await Book.find(query).sort(sortObj);
+    console.log("result :", results);
     res.render("mybooks", { results });
   } catch (err) {
     console.log(err);
