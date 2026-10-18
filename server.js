@@ -1,10 +1,14 @@
+//// packages ::
 const express = require("express");
 const path = require("path");
 const flash = require("connect-flash");
 const session = require("express-session");
+////// files ::
+
 const Book = require("./models/bookModel.js");
 
 const connectDb = require("./config/db.js");
+const isAuth = require("./config/isAuth.js");
 
 const app = express();
 connectDb();
@@ -49,7 +53,7 @@ app.get("/about", (req, res) => {
   res.render("about");
 });
 
-app.get("/ourbooks", (req, res) => {
+app.get("/ourbooks", isAuth, (req, res) => {
   res.render("books");
 });
 
@@ -61,11 +65,11 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 
-app.get("/addbooks", (req, res) => {
+app.get("/addbooks", isAuth, (req, res) => {
   res.render("addbooks");
 });
 
-app.get("/mybooks", async (req, res) => {
+app.get("/mybooks", isAuth, async (req, res) => {
   try {
     const { sort, q, min, max } = req.query;
 
@@ -89,6 +93,8 @@ app.get("/mybooks", async (req, res) => {
     }
 
     let sortObj = {};
+    // console.log("sort:", sort);
+    // console.log("min:", min, "max:", max);
 
     switch (sort) {
       case "price_asc":
@@ -106,12 +112,12 @@ app.get("/mybooks", async (req, res) => {
       case "newset":
         sortObj = { _id: -1 };
         break;
-      // default:
-      //   sortObj = { _id: -1 };
+      default:
+        sortObj = { _id: -1 };
     }
 
     const results = await Book.find(query).sort(sortObj);
-    console.log("result :", results);
+
     res.render("mybooks", { results });
   } catch (err) {
     console.log(err);

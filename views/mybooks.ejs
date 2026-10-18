@@ -11,27 +11,24 @@
  background: linear-gradient(to top left ,#3653e4 , #ffff);
  ">
   <input  style="display: block; margin: 15px;" type="search" name="q" placeholder="search by title">
-   <select name="sort" style="display: block; margin: 15px;">
-    <option value="price_asc">
-      Price : Low to High
-    </option>
-    <option value="price_desc">
-     Price : High to Low
-    </option>
+ 
 
-    <option value="title_asc">
-    Title : A ===> Z
-    </option>
-    <option value="title_desc">
-      Title : Z ===> A
-    </option>
-    <option value="newset">
-      Newset
-    </option>
-   </select>
+<select name="sort" style="display: block; margin: 15px;" >
+  <option value="price_asc" selected>Price : Low to High</option>
+  <option value="price_desc">Price : High to Low</option>
+  <option value="title_asc">Title : A ===> Z</option>
+  <option value="title_desc">Title : Z ===> A</option>
+  <option value="newset">Newest</option>
+</select>
+
    <input style="display: block; margin: 15px;" type="number" name="min" placeholder="min price ...">
    <input style="display: block; margin: 15px;" type="number" name="max" placeholder="max price">
    <button class="btn btn-secondary" type="submit">FILTER</button>
+   <button class="btn btn-danger" type="button" 
+   onclick="window.location.href='/mybooks'"
+   >RESET</button>
+
+
 </form>
 
 

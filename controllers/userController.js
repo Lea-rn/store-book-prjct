@@ -56,6 +56,7 @@ exports.loginUser = async (req, res) => {
     }
     console.log("login with success !!");
     req.session.user = result;
+
     res.redirect("/ourbooks");
   } catch (err) {
     console.log(err);
